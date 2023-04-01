@@ -91,6 +91,7 @@ button{
     width:9.6rem;
     height: 9.6rem;
     cursor: pointer;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 button:hover{
@@ -128,8 +129,9 @@ button:hover{
         padding-top: 3rem;
     }
     main{
-        width: 90%;
-        padding: 4rem 0 2rem 4rem;
+        width: auto;
+        padding: 4rem 2rem 2rem 4rem;
+        border-radius: 0 0 8rem 0;
     }
     form{
        padding-bottom: 3rem;
