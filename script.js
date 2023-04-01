@@ -60,7 +60,7 @@ button.addEventListener('click', (e)=>{
     month.classList.remove('error-sign');
     monthInput.nextElementSibling.innerHTML = '';
     if(monthInput.value>currentMonth){
-        monthResults.textContent = 12 - (monthInput.value-currentMonth);
+        monthResults.textContent = 11 - (monthInput.value-currentMonth);
         yearResults.textContent = currentYear - yearInput.value-1;
     }
     if(monthInput.value==currentMonth && dayInput.value>currentDay){
@@ -93,7 +93,7 @@ button.addEventListener('click', (e)=>{
        dayResults.textContent = months[currentMonth-1] - dayInput.value + currentDay;
        monthResults.textContent = currentMonth - monthInput.value -1;
        if(monthInput.value>currentMonth){
-        monthResults.textContent = 12 - (monthInput.value-currentMonth);
+        monthResults.textContent = 11 - (monthInput.value-currentMonth);
         yearResults.textContent = currentYear - yearInput.value-1;
     }
     if(monthInput.value==currentMonth && dayInput.value>currentDay){
@@ -104,7 +104,7 @@ button.addEventListener('click', (e)=>{
         dayResults.textContent = '0';
         monthResults.textContent = currentMonth - monthInput.value;
         if(monthInput.value>currentMonth){
-            monthResults.textContent = 12 - (monthInput.value-currentMonth);
+            monthResults.textContent = 11 - (monthInput.value-currentMonth);
             yearResults.textContent = currentYear - yearInput.value-1;
         }
         if(monthInput.value==currentMonth && dayInput.value>currentDay){
@@ -115,7 +115,7 @@ button.addEventListener('click', (e)=>{
         dayResults.textContent = currentDay - dayInput.value;
         monthResults.textContent = currentMonth - monthInput.value;
         if(monthInput.value>currentMonth){
-            monthResults.textContent = 12 - (monthInput.value-currentMonth);
+            monthResults.textContent = 11 - (monthInput.value-currentMonth);
             yearResults.textContent = currentYear - yearInput.value-1;
         }
         if(monthInput.value==currentMonth && dayInput.value>currentDay){
