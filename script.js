@@ -58,6 +58,8 @@ button.addEventListener('click', (e)=>{
     monthInput.nextElementSibling.innerHTML = `
     <p class="error">Must be a valid month</p>
     `;
+    monthResults.textContent = monthText;
+    yearResults.textContent = textYear;
    }else{
     monthInput.classList.remove('error-sign');
     month.classList.remove('error-sign');
