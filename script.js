@@ -38,6 +38,9 @@ button.addEventListener('click', (e)=>{
     yearInput.nextElementSibling.innerHTML = `
      <p class="error">Must be in the past</p>
     `;
+       monthResults.textContent = monthText;
+       yearResults.textContent = textYear;
+       
    }else{
     yearResults.textContent = currentYear - yearInput.value;
     yearInput.classList.remove('error-sign');
