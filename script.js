@@ -18,7 +18,7 @@ let flag2 = true;
 let flag3 = true;
 const months = {
     1: 31,
-    2: 28,
+    2: 29,
     3: 31,
     4: 30,
     5: 31,
