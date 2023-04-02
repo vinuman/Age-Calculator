@@ -9,6 +9,13 @@ const textYear = document.querySelector('.year-result .dash').textContent;
 const monthText = document.querySelector('.month-result .dash').textContent;
 const currentDay = new Date().getDate();
 const currentYear = new Date().getFullYear();
+const yearResults = document.querySelector('.year-result .dash');
+const monthResults = document.querySelector('.month-result .dash');
+const currentMonth = new Date().getMonth() +1;
+const dayResults = document.querySelector('.day-result .dash');
+let flag1 = true;
+let flag2 = true;
+let flag3 = true;
 const months = {
     1: 31,
     2: 28,
@@ -25,89 +32,60 @@ const months = {
   };
 
 
-//BUTTON CLICK CODE
-button.addEventListener('click', (e)=>{
-   e.preventDefault();
-
-   //YEAR CALCULATION
-   const yearResults = document.querySelector('.year-result .dash');
-
-   if(yearInput.value > currentYear || yearInput.value==0){
-    yearInput.classList.add('error-sign');
+  //BUTTON CLICK
+  button.addEventListener('click', (e)=>{
+    e.preventDefault();
+ 
+    //YEAR
+    if(yearInput.value > currentYear || yearInput.value==0){
+        yearInput.classList.add('error-sign');
     year.classList.add('error-sign');
     yearInput.nextElementSibling.innerHTML = `
      <p class="error">Must be in the past</p>
     `;
-       monthResults.textContent = monthText;
-       yearResults.textContent = textYear;
-       
-   }else{
-    yearResults.textContent = currentYear - yearInput.value;
-    yearInput.classList.remove('error-sign');
-    year.classList.remove('error-sign');
-    yearInput.nextElementSibling.innerHTML = '';
-   }
-   //YEAR CALCULATION ENDS
-
-   //MONTH CALCULATION
-   const monthResults = document.querySelector('.month-result .dash');
-   const currentMonth = new Date().getMonth() +1;
-   if(monthInput.value > 12 || monthInput.value<1){
-    monthInput.classList.add('error-sign');
-    month.classList.add('error-sign');
-    monthInput.nextElementSibling.innerHTML = `
-    <p class="error">Must be a valid month</p>
-    `;
-    monthResults.textContent = monthText;
-    yearResults.textContent = textYear;
-   }else{
-    monthInput.classList.remove('error-sign');
-    month.classList.remove('error-sign');
-    monthInput.nextElementSibling.innerHTML = '';
-    if(monthInput.value>currentMonth){
-        monthResults.textContent = 11 - (monthInput.value-currentMonth);
-        yearResults.textContent = currentYear - yearInput.value-1;
+    flag1 = false;
+    }else{
+        yearInput.classList.remove('error-sign');
+        year.classList.remove('error-sign');
+        yearInput.nextElementSibling.innerHTML = '';
+        flag1 = true;
     }
-    if(monthInput.value==currentMonth && dayInput.value>currentDay){
-        monthResults.textContent = 11;
-        yearResults.textContent = currentYear - yearInput.value-1;
+
+    //MONTH
+    if(monthInput.value > 12 || monthInput.value<1){
+        monthInput.classList.add('error-sign');
+        month.classList.add('error-sign');
+        monthInput.nextElementSibling.innerHTML = `
+        <p class="error">Must be a valid month</p>
+        `;
+         flag2 = false;
+       }else{
+        monthInput.classList.remove('error-sign');
+        month.classList.remove('error-sign');
+        monthInput.nextElementSibling.innerHTML = '';
+        flag2 = true;
     }
-    /* monthResults.textContent = Math.abs(currentMonth - monthInput.value); */
-   }
-   //MONTH CALCULATION ENDS
+
+    //DAYS
+    if(dayInput.value> months[monthInput.value] || dayInput.value<1){
+        dayInput.classList.add('error-sign');
+        day.classList.add('error-sign');
+        dayInput.nextElementSibling.innerHTML = `
+        <p class="error">Must be a valid day</p>
+        `;
+        flag3 = false;
+       }else{
+        dayInput.classList.remove('error-sign');
+        day.classList.remove('error-sign');
+        dayInput.nextElementSibling.innerHTML = '';
+        flag3 = true;
+
+       }
 
 
-   //DAYS CALCULATION
-   const dayResults = document.querySelector('.day-result .dash');
+       if(flag1===true && flag2===true && flag3===true){
+        yearResults.textContent = currentYear - yearInput.value;
 
-   if(dayInput.value> months[monthInput.value] || dayInput.value<1){
-    dayInput.classList.add('error-sign');
-    day.classList.add('error-sign');
-    dayInput.nextElementSibling.innerHTML = `
-    <p class="error">Must be a valid day</p>
-    `;
-    monthResults.textContent = monthText;
-    yearResults.textContent = textYear;
-    return;
-   }else{
-    dayInput.classList.remove('error-sign');
-    day.classList.remove('error-sign');
-    dayInput.nextElementSibling.innerHTML = '';
-    if(dayInput.value > currentDay){
-       console.log(months[currentMonth-1] - dayInput.value + currentDay);
-       dayResults.textContent = months[currentMonth-1] - dayInput.value + currentDay;
-       monthResults.textContent = currentMonth - monthInput.value -1;
-       if(monthInput.value>currentMonth){
-        monthResults.textContent = 11 - (monthInput.value-currentMonth);
-        yearResults.textContent = currentYear - yearInput.value-1;
-    }
-    if(monthInput.value==currentMonth && dayInput.value>currentDay){
-        monthResults.textContent = 11;
-        yearResults.textContent = currentYear - yearInput.value-1;
-    }
-    } else if(dayInput.value == currentDay){
-        dayResults.textContent = '0';
-        monthResults.textContent = currentMonth - monthInput.value;
         if(monthInput.value>currentMonth){
             monthResults.textContent = 11 - (monthInput.value-currentMonth);
             yearResults.textContent = currentYear - yearInput.value-1;
@@ -116,25 +94,48 @@ button.addEventListener('click', (e)=>{
             monthResults.textContent = 11;
             yearResults.textContent = currentYear - yearInput.value-1;
         }
-    } else{
-        dayResults.textContent = currentDay - dayInput.value;
-        monthResults.textContent = currentMonth - monthInput.value;
-        if(monthInput.value>currentMonth){
-            monthResults.textContent = 11 - (monthInput.value-currentMonth);
-            yearResults.textContent = currentYear - yearInput.value-1;
-        }
-        if(monthInput.value==currentMonth && dayInput.value>currentDay){
-            monthResults.textContent = 11;
-            yearResults.textContent = currentYear - yearInput.value-1;
-        }
-    }
-   }
-   //DAYS CALCULATION ENDS
 
-});
-//BUTTON CLICK ENDS
+        if(dayInput.value > currentDay){
+            dayResults.textContent = months[currentMonth-1] - dayInput.value + currentDay;
+            monthResults.textContent = currentMonth - monthInput.value -1;
+            if(monthInput.value>currentMonth){
+             monthResults.textContent = 11 - (monthInput.value-currentMonth);
+             yearResults.textContent = currentYear - yearInput.value-1;
+         }
+         if(monthInput.value==currentMonth && dayInput.value>currentDay){
+             monthResults.textContent = 11;
+             yearResults.textContent = currentYear - yearInput.value-1;
+         }
+         } else if(dayInput.value == currentDay){
+             dayResults.textContent = '0';
+             monthResults.textContent = currentMonth - monthInput.value;
+             if(monthInput.value>currentMonth){
+                 monthResults.textContent = 11 - (monthInput.value-currentMonth);
+                 yearResults.textContent = currentYear - yearInput.value-1;
+             }
+             if(monthInput.value==currentMonth && dayInput.value>currentDay){
+                 monthResults.textContent = 11;
+                 yearResults.textContent = currentYear - yearInput.value-1;
+             }
+         } else{
+             dayResults.textContent = currentDay - dayInput.value;
+             monthResults.textContent = currentMonth - monthInput.value;
+             if(monthInput.value>currentMonth){
+                 monthResults.textContent = 11 - (monthInput.value-currentMonth);
+                 yearResults.textContent = currentYear - yearInput.value-1;
+             }
+             if(monthInput.value==currentMonth && dayInput.value>currentDay){
+                 monthResults.textContent = 11;
+                 yearResults.textContent = currentYear - yearInput.value-1;
+             }
+         }
+       }
 
-//DAY INPUT FORM VALIDATION RESET
+ });
+
+
+
+ //DAY INPUT FORM VALIDATION RESET
 dayInput.addEventListener('input',()=>{
     if(dayInput.value< months[monthInput.value] && dayInput.value>1){
         dayInput.classList.remove('error-sign');
@@ -159,4 +160,4 @@ yearInput.addEventListener('input',()=>{
         year.classList.remove('error-sign');
         yearInput.nextElementSibling.innerHTML = '';
     }
-})
+});
